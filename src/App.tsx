@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import estilos from './estilos.css?inline';
 import { cargarPerfil, type Perfil } from './perfil';
 
 export interface Contexto {
@@ -6,7 +7,7 @@ export interface Contexto {
   user: { sub: string; nombre: string; email: string };
 }
 
-/** Pantalla inicial del remoto: confirma que el login y el token llegan hasta GestiÃ³n. AquÃ­ crecen las funciones propias. */
+/** Pantalla inicial del remoto: confirma que el login y el token llegan hasta Gestión. Aquí crecen las funciones propias. */
 export function App({ getToken, user }: Contexto) {
   const [perfil, setPerfil] = useState<Perfil | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -18,23 +19,39 @@ export function App({ getToken, user }: Contexto) {
   }, [getToken]);
 
   return (
-    <section data-remoto="residente">
-      <h1>Portal del residente</h1>
-      <p>SesiÃ³n de {user.nombre} ({user.email})</p>
-      {error && <p role="alert">{error}</p>}
+    <section className="ch-remoto" data-remoto="residente">
+      <style>{estilos}</style>
+      <header className="ch-cabecera">
+        <h1>Portal del residente</h1>
+        <p className="ch-sesion">
+          Sesión de {user.nombre} ({user.email})
+        </p>
+      </header>
+      {error && (
+        <p className="ch-error" role="alert">
+          {error}
+        </p>
+      )}
       {perfil && (
-        <>
-          <p>Roles: {perfil.roles.join(', ')}</p>
+        <div className="ch-tarjeta">
+          <p className="ch-etiqueta">Roles: {perfil.roles.join(', ')}</p>
           {perfil.unidades.length > 0 && (
-            <ul>
-              {perfil.unidades.map((u) => (
-                <li key={u.unidadId}>
-                  {u.codigo} Â· bloque {u.bloque} Â· {u.titular ? 'titular' : 'residente'}
-                </li>
-              ))}
-            </ul>
+            <>
+              <h2>Mis unidades</h2>
+              <ul className="ch-unidades">
+                {perfil.unidades.map((u) => (
+                  <li key={u.unidadId}>
+                    <strong>{u.codigo}</strong>
+                    <span>Bloque {u.bloque}</span>
+                    <span className={u.titular ? 'ch-insignia ch-insignia--titular' : 'ch-insignia'}>
+                      {u.titular ? 'Titular' : 'Residente'}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </>
           )}
-        </>
+        </div>
       )}
     </section>
   );

@@ -2,7 +2,7 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
-// El shell carga este remoto con import(url): el build es un mÃ³dulo ES que exporta mount y unmount (src/remote.tsx).
+// El shell carga este remoto con import(url): el build es un módulo ES que exporta mount y unmount (src/remote.tsx).
 // Contrato con el shell: ver frontends/shell/src/remotes/contrato.ts.
 export default defineConfig({
   plugins: [react()],

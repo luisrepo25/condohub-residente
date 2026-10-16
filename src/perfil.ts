@@ -16,15 +16,15 @@ const GATEWAY = import.meta.env.VITE_GATEWAY_URL ?? 'http://localhost:8080';
 
 const CONSULTA = '{ miPerfil { roles personaId nombre unidades { unidadId codigo bloque titular } } }';
 
-/** Consulta `miPerfil` de GestiÃ³n (por el gateway) con el token del shell. */
+/** Consulta `miPerfil` de Gestión (por el gateway) con el token del shell. */
 export async function cargarPerfil(getToken: () => string): Promise<Perfil> {
   const r = await fetch(`${GATEWAY}/gestion/graphql`, {
     method: 'POST',
     headers: { 'content-type': 'application/json', authorization: `Bearer ${getToken()}` },
     body: JSON.stringify({ query: CONSULTA }),
   });
-  if (!r.ok) throw new Error(`GestiÃ³n respondiÃ³ ${r.status}`);
+  if (!r.ok) throw new Error(`Gestión respondió ${r.status}`);
   const cuerpo = (await r.json()) as { data?: { miPerfil: Perfil }; errors?: { message: string }[] };
-  if (!cuerpo.data) throw new Error(cuerpo.errors?.[0]?.message ?? 'Respuesta vacÃ­a de GestiÃ³n');
+  if (!cuerpo.data) throw new Error(cuerpo.errors?.[0]?.message ?? 'Respuesta vacía de Gestión');
   return cuerpo.data.miPerfil;
 }

@@ -1,0 +1,47 @@
+/* Los colores vienen del shell (--ch-*) y, si el remoto corre suelto, de estos valores por defecto. */
+.ch-remoto {
+  --_bg: var(--ch-surface, #ffffff);
+  --_texto: var(--ch-text, #1f2937);
+  --_suave: var(--ch-muted, #6b7280);
+  --_borde: var(--ch-border, #e5e7eb);
+  --_acento: var(--ch-accent, #2563eb);
+  max-width: 56rem;
+  margin: 0 auto;
+  color: var(--_texto);
+}
+.ch-cabecera h1 { margin: 0 0 0.25rem; font-size: 1.75rem; letter-spacing: -0.02em; }
+.ch-sesion { margin: 0 0 1.5rem; color: var(--_suave); }
+.ch-tarjeta {
+  background: var(--_bg);
+  border: 1px solid var(--_borde);
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+}
+.ch-tarjeta h2 { margin: 1rem 0 0.75rem; font-size: 1.05rem; }
+.ch-etiqueta { margin: 0; color: var(--_suave); font-size: 0.9rem; }
+.ch-unidades { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.ch-unidades li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--_borde);
+  border-radius: 0.5rem;
+}
+.ch-unidades li span:nth-child(2) { color: var(--_suave); flex: 1; }
+.ch-insignia {
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  border: 1px solid var(--_borde);
+  color: var(--_suave);
+}
+.ch-insignia--titular { color: var(--_acento); border-color: var(--_acento); }
+.ch-error {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: rgb(220 38 38 / 0.1);
+  color: #b91c1c;
+  border: 1px solid rgb(220 38 38 / 0.35);
+}
