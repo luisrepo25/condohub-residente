@@ -49,6 +49,10 @@ npm run build && npm run preview   # el service worker solo se prueba en build
 - Test obligatorio: enviar la misma operación dos veces (simular reintento) produce un solo pago.
 - No guardar la foto del comprobante más tiempo del necesario en IndexedDB; se borra al sincronizar.
 
+## Estado (16/10/2026)
+
+Esqueleto: módulo ES con `mount`/`unmount` que muestra la sesión y consulta `miPerfil` a Gestión (React + Vite, 3 tests, `Dockerfile` con nginx, CI en GitHub Actions). **Faltan todas las pantallas y funciones de este documento.** Cómo correrlo y su contrato con el shell: `README.md`.
+
 ## Código funcional protegido (obligatorio)
 
 Código en `main` con tests en verde **no se reescribe, refactoriza, renombra ni reformatea** si la tarea no lo pide explícitamente. Lo nuevo se agrega extendiendo (clases, métodos o archivos nuevos). Si es inevitable tocar código funcional, **detente antes de editar**, explica qué archivo/líneas y por qué, y espera confirmación; luego haz el mínimo diff. Nunca edites tests existentes para que pase código nuevo. Corre los tests antes y después: todo lo que pasaba debe seguir pasando. En el resumen, lista cada archivo existente que modificaste.
