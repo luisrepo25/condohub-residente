@@ -6,7 +6,8 @@ import { defineConfig } from 'vite';
 // Contrato con el shell: ver frontends/shell/src/remotes/contrato.ts.
 export default defineConfig({
   plugins: [react()],
-  define: { 'process.env.NODE_ENV': '"production"' },
+  // Solo al compilar el remoto: en los tests React debe quedar en modo desarrollo para que act() funcione.
+  define: process.env.VITEST ? {} : { 'process.env.NODE_ENV': '"production"' },
   build: {
     target: 'esnext',
     lib: { entry: 'src/remote.tsx', formats: ['es'], fileName: () => 'assets/remoteEntry.js' },

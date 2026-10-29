@@ -45,3 +45,16 @@
   color: #b91c1c;
   border: 1px solid rgb(220 38 38 / 0.35);
 }
+.ch-pestanas { display: flex; gap: 0.25rem; margin: 1rem 0; border-bottom: 1px solid var(--_borde); }
+.ch-pestana {
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0.5rem 0.5rem 0 0;
+  background: none;
+  color: var(--_suave);
+  cursor: pointer;
+  font: inherit;
+}
+.ch-pestana:hover { color: var(--_texto); }
+.ch-pestana[aria-selected='true'] { color: var(--_acento); border-bottom-color: var(--_acento); font-weight: 600; }

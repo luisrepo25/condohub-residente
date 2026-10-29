@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import estilos from './estilos.css?inline';
+import { VisitasPanel } from './features/visitas';
 import { cargarPerfil, type Perfil } from './perfil';
 
 export interface Contexto {
@@ -11,6 +12,7 @@ export interface Contexto {
 export function App({ getToken, user }: Contexto) {
   const [perfil, setPerfil] = useState<Perfil | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [pestana, setPestana] = useState<'unidades' | 'visitas'>('unidades');
 
   useEffect(() => {
     cargarPerfil(getToken)
@@ -37,18 +39,28 @@ export function App({ getToken, user }: Contexto) {
           <p className="ch-etiqueta">Roles: {perfil.roles.join(', ')}</p>
           {perfil.unidades.length > 0 && (
             <>
-              <h2>Mis unidades</h2>
-              <ul className="ch-unidades">
-                {perfil.unidades.map((u) => (
-                  <li key={u.unidadId}>
-                    <strong>{u.codigo}</strong>
-                    <span>Bloque {u.bloque}</span>
-                    <span className={u.titular ? 'ch-insignia ch-insignia--titular' : 'ch-insignia'}>
-                      {u.titular ? 'Titular' : 'Residente'}
-                    </span>
-                  </li>
+              <div className="ch-pestanas" role="tablist" aria-label="Secciones del portal">
+                {(['unidades', 'visitas'] as const).map((id) => (
+                  <button key={id} role="tab" aria-selected={pestana === id} className="ch-pestana" onClick={() => setPestana(id)}>
+                    {id === 'unidades' ? 'Mis unidades' : 'Anunciar visita'}
+                  </button>
                 ))}
-              </ul>
+              </div>
+              {pestana === 'unidades' ? (
+                <ul className="ch-unidades">
+                  {perfil.unidades.map((u) => (
+                    <li key={u.unidadId}>
+                      <strong>{u.codigo}</strong>
+                      <span>Bloque {u.bloque}</span>
+                      <span className={u.titular ? 'ch-insignia ch-insignia--titular' : 'ch-insignia'}>
+                        {u.titular ? 'Titular' : 'Residente'}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <VisitasPanel getToken={getToken} unidades={perfil.unidades} />
+              )}
             </>
           )}
         </div>
