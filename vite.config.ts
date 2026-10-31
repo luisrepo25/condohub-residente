@@ -16,8 +16,8 @@ export default defineConfig({
   ],
   // Solo al compilar el remoto: en los tests React debe quedar en modo desarrollo para que act() funcione.
   define: process.env.VITEST ? {} : { 'process.env.NODE_ENV': '"production"' },
-  // Sin index.html: el contenedor federado es la única salida; la entrada es el propio remoto.
-  build: { target: 'esnext', minify: false, cssCodeSplit: false, rollupOptions: { input: 'src/remote.tsx' } },
+  // Sin index.html: el contenedor federado es la única salida. La entrada NO puede ser el módulo expuesto (ver el archivo).
+  build: { target: 'esnext', minify: false, cssCodeSplit: false, rollupOptions: { input: 'src/federacion-entrada.ts' } },
   preview: { port: 5174, strictPort: true, cors: true },
   test: { environment: 'jsdom', include: ['tests/**/*.test.{ts,tsx}'] },
 });
