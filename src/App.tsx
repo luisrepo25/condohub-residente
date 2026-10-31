@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import estilos from './estilos.css?inline';
+import { ConsentimientoPanel } from './features/consentimiento';
 import { CuentaPanel } from './features/cuenta';
 import { PagosPanel } from './features/pagos';
 import { ReservasPanel } from './features/reservas';
@@ -11,8 +12,8 @@ export interface Contexto {
   user: { sub: string; nombre: string; email: string };
 }
 
-type Pestana = 'unidades' | 'cuenta' | 'pagos' | 'reservas' | 'visitas';
-const ETIQUETAS: Record<Pestana, string> = { unidades: 'Mis unidades', cuenta: 'Estado de cuenta', pagos: 'Pagar', reservas: 'Reservar', visitas: 'Anunciar visita' };
+type Pestana = 'unidades' | 'cuenta' | 'pagos' | 'reservas' | 'visitas' | 'privacidad';
+const ETIQUETAS: Record<Pestana, string> = { unidades: 'Mis unidades', cuenta: 'Estado de cuenta', pagos: 'Pagar', reservas: 'Reservar', visitas: 'Anunciar visita', privacidad: 'Privacidad' };
 
 /** Pantalla inicial del remoto: confirma que el login y el token llegan hasta Gestión. Aquí crecen las funciones propias. */
 export function App({ getToken, user }: Contexto) {
@@ -69,6 +70,7 @@ export function App({ getToken, user }: Contexto) {
                 </ul>
               )}
               {pestana === 'visitas' && <VisitasPanel getToken={getToken} unidades={perfil.unidades} />}
+              {pestana === 'privacidad' && <ConsentimientoPanel getToken={getToken} personaId={perfil.personaId} />}
             </>
           )}
         </div>
