@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import estilos from './estilos.css?inline';
 import { CuentaPanel } from './features/cuenta';
 import { PagosPanel } from './features/pagos';
+import { ReservasPanel } from './features/reservas';
 import { VisitasPanel } from './features/visitas';
 import { cargarPerfil, type Perfil } from './perfil';
 
@@ -10,8 +11,8 @@ export interface Contexto {
   user: { sub: string; nombre: string; email: string };
 }
 
-type Pestana = 'unidades' | 'cuenta' | 'pagos' | 'visitas';
-const ETIQUETAS: Record<Pestana, string> = { unidades: 'Mis unidades', cuenta: 'Estado de cuenta', pagos: 'Pagar', visitas: 'Anunciar visita' };
+type Pestana = 'unidades' | 'cuenta' | 'pagos' | 'reservas' | 'visitas';
+const ETIQUETAS: Record<Pestana, string> = { unidades: 'Mis unidades', cuenta: 'Estado de cuenta', pagos: 'Pagar', reservas: 'Reservar', visitas: 'Anunciar visita' };
 
 /** Pantalla inicial del remoto: confirma que el login y el token llegan hasta Gestión. Aquí crecen las funciones propias. */
 export function App({ getToken, user }: Contexto) {
@@ -53,6 +54,7 @@ export function App({ getToken, user }: Contexto) {
               </div>
               {pestana === 'cuenta' && <CuentaPanel getToken={getToken} unidades={perfil.unidades} />}
               {pestana === 'pagos' && <PagosPanel getToken={getToken} unidades={perfil.unidades} />}
+              {pestana === 'reservas' && <ReservasPanel getToken={getToken} unidades={perfil.unidades} />}
               {pestana === 'unidades' && (
                 <ul className="ch-unidades">
                   {perfil.unidades.map((u) => (

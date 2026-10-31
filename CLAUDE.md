@@ -51,16 +51,17 @@ npm run build && npm run preview   # el service worker solo se prueba en build
 
 ## Estado (31/10/2026)
 
-Remoto React (contenedor de Module Federation que expone `./remote`, con su propio React; `Dockerfile` con nginx y CI) con cuatro pestañas, cada una una feature en capas (`docs/arquitectura/frontends.md`):
+Remoto React (contenedor de Module Federation que expone `./remote`, con su propio React; `Dockerfile` con nginx y CI) con cinco pestañas, cada una una feature en capas (`docs/arquitectura/frontends.md`):
 
 - **Mis unidades** (F1): `miPerfil`.
 - **Estado de cuenta** (`features/cuenta`, F1, F4, F7): `estadoDeCuenta` de Gestión; los montos se muestran como texto decimal, sin operarlos.
 - **Pagar** (`features/pagos`, F8, F9, O1–O4): foto del comprobante → **OCR local con Tesseract.js** (IA local en el frontend web; la librería y el idioma `eng` se cargan al leer la primera foto, no al montar) → `domain/comprobante.ts` extrae monto, fecha y banco (solo prellena) → el residente revisa → `validarPago` (monto decimal positivo, fecha no futura) → la operación se guarda en **IndexedDB antes de enviarse** (`src/offline/`, con su `Idempotency-Key` UUID v4 y la hora del dispositivo) y se envía con `registrarPago`. Solo una respuesta 2xx la marca sincronizada; sin red, 5xx o `INTERNAL_ERROR` sigue pendiente **con la misma clave** y se reintenta al volver la conexión (`online`) y con espera exponencial (1 s a 5 min); una regla violada (F8...) la rechaza con su código. El pago nace `PENDIENTE`: confirmarlo es del ADMIN (F9).
+- **Reservar** (`features/reservas`, R1–R8, S1, O1, O3): áreas de Reservas, formulario de día y horas del dispositivo (se envían en UTC) con invitados, y la lista de reservas con su estado. La solicitud lleva `Idempotency-Key` (la misma si se reintenta con los mismos datos); la saga se sigue consultando cada 3 s mientras la reserva está `SOLICITADA` hasta `CONFIRMADA` o `FALLIDA` (con su motivo). Las reglas R2–R4 y F1 las decide Reservas y se muestran con su código en un mensaje legible; cancelar solo aparece en `CONFIRMADA` (R7, R8) y manda la `version` (O5). Reservar necesita red (O6): sin conexión se avisa y no se encola. Verificado en Chrome contra el sistema local: R3 rechazada con mensaje claro, reserva con invitados `CONFIRMADA` en ~5 s y luego cancelada.
 - **Anunciar visita** (`features/visitas`, A1): pase QR.
 
-Verificado en Chrome contra el sistema local: el OCR leyó un comprobante generado (monto, fecha, banco) en ~2 s; sin red el pago quedó «Esperando conexión» y al reconectar se envió con la misma clave (1 sola fila `PENDIENTE` en la BD). 49 pruebas con Vitest.
+Verificado en Chrome contra el sistema local: el OCR leyó un comprobante generado (monto, fecha, banco) en ~2 s; sin red el pago quedó «Esperando conexión» y al reconectar se envió con la misma clave (1 sola fila `PENDIENTE` en la BD). 70 pruebas con Vitest.
 
-**Limitaciones:** el idioma del OCR (`eng`) y el motor wasm se descargan del CDN de Tesseract la primera vez, así que **leer la primera foto necesita red** salvo que un service worker los guarde (pendiente, PWA); Gestión no recibe la imagen del comprobante (`registrarPago` solo lleva monto, fecha y banco). **Falta:** service worker y manifest de la PWA, historial de pagos del servidor, reservas. Cómo correrlo y su contrato con el shell: `README.md`.
+**Limitaciones:** el idioma del OCR (`eng`) y el motor wasm se descargan del CDN de Tesseract la primera vez, así que **leer la primera foto necesita red** salvo que un service worker los guarde (pendiente, PWA); Gestión no recibe la imagen del comprobante (`registrarPago` solo lleva monto, fecha y banco). **Falta:** service worker y manifest de la PWA, historial de pagos del servidor. Cómo correrlo y su contrato con el shell: `README.md`.
 
 ## Código funcional protegido (obligatorio)
 

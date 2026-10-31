@@ -1,0 +1,23 @@
+.ch-reservas { display: grid; gap: 0.75rem; }
+.ch-reservas h3 { margin: 0.5rem 0 0; font-size: 1rem; }
+.ch-reserva-form { display: grid; gap: 0.75rem; }
+.ch-reserva-form label { display: grid; gap: 0.25rem; font-size: 0.9rem; color: var(--ch-muted, #6b7280); }
+.ch-reserva-form input, .ch-reserva-form select, .ch-reserva-form textarea {
+  padding: 0.5rem 0.7rem; border: 1px solid var(--ch-border, #e5e7eb); border-radius: 0.5rem; font: inherit; color: var(--ch-text, #1f2937);
+}
+.ch-reserva-horas { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.ch-boton {
+  padding: 0.55rem 1rem; border: 1px solid var(--ch-accent, #2563eb); border-radius: 0.5rem;
+  background: var(--ch-accent, #2563eb); color: #fff; font: inherit; cursor: pointer;
+}
+.ch-boton:disabled { opacity: 0.6; cursor: progress; }
+.ch-boton-secundario {
+  justify-self: start; padding: 0.35rem 0.8rem; border: 1px solid #b91c1c; border-radius: 0.5rem;
+  background: none; color: #b91c1c; font: inherit; cursor: pointer;
+}
+.ch-campo-error { color: #b91c1c; font-size: 0.85rem; }
+.ch-reserva-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.ch-reserva-lista li { display: grid; gap: 0.2rem; padding: 0.7rem 0.9rem; border: 1px solid var(--ch-border, #e5e7eb); border-radius: 0.5rem; }
+.ch-reserva-lista li[data-estado='CONFIRMADA'] { border-color: #166534; }
+.ch-reserva-lista li[data-estado='SOLICITADA'] { border-color: var(--ch-accent, #2563eb); }
+.ch-reserva-lista li[data-estado='FALLIDA'] { border-color: #b91c1c; }
