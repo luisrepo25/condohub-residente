@@ -1,0 +1,79 @@
+/* Controles y datos comunes a las pantallas. El prefijo .ch-remoto gana a las hojas de cada feature sin tener que tocarlas. */
+.ch-remoto label { display: grid; gap: 5px; color: var(--_texto); font-size: 0.92rem; font-weight: 600; }
+.ch-remoto form label { color: var(--_texto); font-weight: 600; }
+.ch-remoto form input:not([type='file']), .ch-remoto select, .ch-remoto form select, .ch-remoto form textarea {
+  width: 100%; min-height: 46px; padding: 0 13px; border: 1px solid var(--_control); border-radius: 11px;
+  background: var(--_sup2); color: var(--_texto); font: inherit; font-weight: 400;
+}
+.ch-remoto form textarea { padding: 10px 13px; }
+.ch-remoto input[type='file'] { width: 100%; padding: 12px; border: 1px dashed var(--_control); border-radius: 11px; background: var(--_sup2); color: var(--_suave); font: inherit; font-weight: 400; }
+.ch-remoto input[type='file']::file-selector-button { min-height: 40px; margin-right: 12px; padding: 0 14px; border: 1px solid var(--_control); border-radius: 9px; background: transparent; color: var(--_texto); font: inherit; font-weight: 600; cursor: pointer; }
+.ch-remoto input:focus, .ch-remoto select:focus, .ch-remoto textarea:focus { outline: 2px solid var(--_acento); outline-offset: 1px; }
+.ch-remoto :focus-visible { outline: 2px solid var(--_acento); outline-offset: 2px; }
+.ch-remoto .ch-boton, .ch-dialogo .ch-boton {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 18px; border: 1px solid var(--ch-accent, #2563eb); border-radius: 11px;
+  background: var(--ch-accent, #2563eb); color: var(--ch-accent-texto, #ffffff); font: inherit; font-weight: 700; text-decoration: none; cursor: pointer;
+  transition: background-color 0.16s ease-out, transform 0.1s ease-out;
+}
+.ch-remoto .ch-boton:hover, .ch-dialogo .ch-boton:hover { background: var(--ch-accent-hover, #1d4ed8); border-color: var(--ch-accent-hover, #1d4ed8); color: var(--ch-accent-texto, #ffffff); }
+.ch-remoto .ch-boton:active, .ch-dialogo .ch-boton:active { transform: scale(0.98); }
+.ch-remoto .ch-boton--suave, .ch-dialogo .ch-boton--suave { background: transparent; border-color: var(--ch-control, #7c8aa0); color: var(--ch-text, #1f2937); font-weight: 600; }
+.ch-remoto .ch-boton--suave:hover, .ch-dialogo .ch-boton--suave:hover { background: var(--ch-superficie-2, #eef2f8); border-color: var(--ch-borde-fuerte, #9fb0c7); color: var(--ch-text, #1f2937); }
+.ch-remoto .ch-boton-secundario, .ch-remoto .ch-boton-peligro, .ch-dialogo .ch-boton-peligro {
+  justify-self: start; min-height: 44px; padding: 0 16px; border: 1px solid var(--ch-peligro, #b91c1c); border-radius: 11px; background: transparent; color: var(--ch-peligro, #b91c1c); font: inherit; font-weight: 600; cursor: pointer;
+}
+.ch-remoto .ch-boton-secundario:hover, .ch-remoto .ch-boton-peligro:hover, .ch-dialogo .ch-boton-peligro:hover { background: var(--ch-peligro-fondo, #fee2e2); border-color: var(--ch-peligro, #b91c1c); color: var(--ch-peligro, #b91c1c); }
+.ch-remoto .ch-campo-error { color: var(--_pe); font-size: 0.88rem; font-weight: 500; }
+.ch-remoto .ch-error { margin: 0; padding: 10px 14px; border: 0; border-radius: 11px; background: var(--_pe-f); color: var(--_pe); font-weight: 600; }
+.ch-remoto .ch-aviso { margin: 0; padding: 10px 14px; border-radius: 11px; background: var(--_ok-f); color: var(--_ok); font-weight: 600; }
+.ch-insignia { display: inline-block; padding: 3px 10px; border: 0; border-radius: 8px; background: var(--ch-neutro-fondo, #e2e8f0); color: var(--ch-neutro, #475569); font-size: 0.8rem; font-weight: 700; }
+.ch-insignia--titular { background: var(--ch-accent-suave, #e8f0fe); color: var(--_acento); }
+.ch-insignia--ok { background: var(--_ok-f); color: var(--_ok); }
+.ch-insignia--peligro { background: var(--_pe-f); color: var(--_pe); }
+/* Saldo: lo primero que el residente necesita ver. */
+.ch-saldo { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; padding: 18px 22px; background: var(--_bg); border: 1px solid var(--_fuerte); border-radius: 16px; box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3); }
+.ch-saldo-principal { flex: 1 1 220px; display: grid; gap: 2px; justify-items: start; }
+.ch-saldo-t { color: var(--_suave); font-size: 0.94rem; font-weight: 500; }
+.ch-saldo-principal b { font-size: 2.3rem; line-height: 1.15; font-weight: 700; }
+.ch-montos { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
+.ch-montos div { min-width: 130px; padding: 9px 14px; border: 1px solid var(--_borde); border-radius: 12px; background: var(--_sup2); }
+.ch-montos dt { color: var(--_suave); font-size: 0.85rem; }
+.ch-montos dd { margin: 0; font-size: 1.3rem; font-weight: 700; }
+.ch-remoto .ch-saldo-pagar { min-height: 52px; padding: 0 24px; font-size: 1.05rem; }
+.ch-saldo select { width: auto; }
+/* Pagar y Reservar: formulario a la izquierda, historial a la derecha. */
+.ch-remoto .ch-pagos, .ch-remoto .ch-reservas { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 14px 28px; align-items: start; }
+.ch-pagos > h2, .ch-reservas > h2 { grid-column: 1 / -1; }
+.ch-pago-form, .ch-reserva-form { grid-column: 1; grid-row: 2 / span 5; }
+.ch-pagos > :not(h2, form, style), .ch-reservas > :not(h2, form, style) { grid-column: 2; }
+.ch-remoto .ch-pago-lista li, .ch-remoto .ch-reserva-lista li { padding: 12px 15px; border: 1px solid var(--_borde); border-radius: 12px; background: var(--_sup2); }
+.ch-remoto .ch-pago-lista li[data-estado='RECHAZADA'], .ch-remoto .ch-reserva-lista li[data-estado='FALLIDA'] { border-color: var(--_pe); }
+.ch-remoto .ch-pago-lista li[data-estado='SINCRONIZADA'], .ch-remoto .ch-reserva-lista li[data-estado='CONFIRMADA'] { border-color: var(--_ok); }
+.ch-remoto .ch-reserva-lista li[data-estado='SOLICITADA'] { border-color: var(--_aviso); }
+/* El estado se lee de un vistazo; el motivo de una cancelación no es un error. */
+.ch-pago-lista li [role='status'], .ch-reserva-lista li [role='status'] { justify-self: start; padding: 3px 10px; border-radius: 8px; background: var(--ch-neutro-fondo, #e2e8f0); color: var(--ch-neutro, #475569); font-size: 0.8rem; font-weight: 700; }
+.ch-pago-lista li[data-estado='SINCRONIZADA'] [role='status'], .ch-reserva-lista li[data-estado='CONFIRMADA'] [role='status'] { background: var(--_ok-f); color: var(--_ok); }
+.ch-pago-lista li[data-estado='PENDIENTE'] [role='status'], .ch-reserva-lista li[data-estado='SOLICITADA'] [role='status'] { background: var(--_aviso-f); color: var(--_aviso); }
+.ch-pago-lista li[data-estado='RECHAZADA'] [role='status'], .ch-reserva-lista li[data-estado='FALLIDA'] [role='status'] { background: var(--_pe-f); color: var(--_pe); }
+.ch-remoto .ch-reserva-lista li[data-estado='CANCELADA'] .ch-campo-error { color: var(--_suave); font-weight: 400; }
+.ch-remoto .ch-visitas { margin: 0; display: grid; gap: 14px; }
+.ch-remoto .ch-visitas > h2 { margin: 0; font-size: 1.4rem; }
+.ch-cuenta .ch-montos div { flex: 1 1 130px; }
+.ch-remoto .ch-visita-form { max-width: none; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); align-items: start; }
+.ch-visita-form > .ch-etiqueta, .ch-visita-form > .ch-error { grid-column: 1 / -1; }
+.ch-visita-form > .ch-boton { justify-self: start; align-self: end; }
+.ch-remoto .ch-pase { max-width: none; }
+.ch-cuenta dl { margin: 0; }
+.ch-moroso, .ch-aldia { margin: 0; padding: 10px 14px; border-radius: 11px; font-weight: 600; }
+.ch-moroso { background: var(--_pe-f); color: var(--_pe); }
+.ch-aldia { background: var(--_ok-f); color: var(--_ok); }
+.ch-consentimiento { display: grid; gap: 14px; }
+.ch-dialogo { max-width: min(460px, calc(100vw - 32px)); padding: 22px 24px; border: 1px solid var(--ch-borde-fuerte, #9fb0c7); border-radius: 16px; background: var(--ch-surface, #ffffff); color: var(--ch-text, #1f2937); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5); }
+.ch-dialogo::backdrop { background: rgba(5, 12, 24, 0.6); }
+.ch-dialogo p { margin: 0 0 16px; line-height: 1.5; }
+.ch-dialogo-acciones { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
+@media (max-width: 900px) {
+  .ch-remoto .ch-pagos, .ch-remoto .ch-reservas { grid-template-columns: minmax(0, 1fr); }
+  .ch-pago-form, .ch-reserva-form, .ch-pagos > :not(h2, form, style), .ch-reservas > :not(h2, form, style) { grid-column: 1; grid-row: auto; }
+  .ch-remoto .ch-saldo-pagar { width: 100%; }
+}

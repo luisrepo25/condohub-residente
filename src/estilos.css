@@ -1,60 +1,67 @@
-/* Los colores vienen del shell (--ch-*) y, si el remoto corre suelto, de estos valores por defecto. */
+/* Estructura del portal. Los colores vienen del shell (--ch-*) y, si el remoto corre suelto, de estos valores por defecto. */
 .ch-remoto {
   --_bg: var(--ch-surface, #ffffff);
+  --_fondo: var(--ch-bg, #f4f6fb);
+  --_sup2: var(--ch-superficie-2, #eef2f8);
   --_texto: var(--ch-text, #1f2937);
-  --_suave: var(--ch-muted, #6b7280);
-  --_borde: var(--ch-border, #e5e7eb);
+  --_suave: var(--ch-muted, #5b6678);
+  --_borde: var(--ch-border, #e3e8f0);
+  --_fuerte: var(--ch-borde-fuerte, #9fb0c7);
+  --_control: var(--ch-control, #7c8aa0);
   --_acento: var(--ch-accent, #2563eb);
-  max-width: 56rem;
+  --_acento-t: var(--ch-accent-texto, #ffffff);
+  --_pe: var(--ch-peligro, #b91c1c);
+  --_pe-f: var(--ch-peligro-fondo, #fee2e2);
+  --_ok: var(--ch-ok, #166534);
+  --_ok-f: var(--ch-ok-fondo, #dcfce7);
+  --_aviso: var(--ch-aviso, #854d0e);
+  --_aviso-f: var(--ch-aviso-fondo, #fef3c7);
+  max-width: 1320px;
   margin: 0 auto;
   color: var(--_texto);
+  font-variant-numeric: tabular-nums;
 }
-.ch-cabecera h1 { margin: 0 0 0.25rem; font-size: 1.75rem; letter-spacing: -0.02em; }
-.ch-sesion { margin: 0 0 1.5rem; color: var(--_suave); }
-.ch-tarjeta {
-  background: var(--_bg);
-  border: 1px solid var(--_borde);
-  border-radius: 0.75rem;
-  padding: 1.25rem 1.5rem;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+.ch-marco {
+  display: flex; align-items: stretch; overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.34); border-radius: 20px;
+  background: color-mix(in srgb, var(--_fondo) var(--ch-opacidad-marco, 90%), transparent);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
 }
-.ch-tarjeta h2 { margin: 1rem 0 0.75rem; font-size: 1.05rem; }
-.ch-etiqueta { margin: 0; color: var(--_suave); font-size: 0.9rem; }
-.ch-unidades { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
-.ch-unidades li {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.65rem 0.9rem;
-  border: 1px solid var(--_borde);
-  border-radius: 0.5rem;
+.ch-pestanas { flex: 0 0 248px; display: flex; flex-direction: column; gap: 4px; padding: 20px 14px; background: var(--ch-marco, #ffffff); }
+.ch-remoto .ch-pestana {
+  display: flex; align-items: center; gap: 11px; width: 100%; min-height: 54px; padding: 6px 12px;
+  border: 1px solid transparent; border-radius: 12px; background: transparent; color: var(--_texto); font: inherit; text-align: left; cursor: pointer;
+  transition: background-color 0.16s ease-out, border-color 0.16s ease-out;
 }
+.ch-remoto .ch-pestana svg { flex: none; }
+.ch-remoto .ch-pestana:hover { background: var(--_sup2); border-color: transparent; color: var(--_texto); }
+.ch-remoto .ch-pestana[aria-selected='true'] { background: var(--_sup2); border-color: var(--_acento); color: var(--_acento); }
+.ch-nav-t { flex: 1; min-width: 0; font-weight: 600; line-height: 1.25; }
+.ch-nav-t::after { content: attr(data-ayuda); display: block; color: var(--_suave); font-size: 0.78rem; font-weight: 400; }
+.ch-area { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 18px; padding: 22px 24px 26px; }
+/* Va sobre la foto: lleva fondo propio para que el texto se lea en cualquier zona de la imagen. */
+.ch-cabecera { padding: 14px 18px; border: 1px solid var(--_fuerte); border-radius: 16px; background: var(--_bg); }
+.ch-cabecera h1 { margin: 0 0 2px; font-size: 1.8rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
+.ch-sesion { margin: 0; color: var(--_suave); font-size: 0.92rem; }
+.ch-etiqueta { margin: 0; color: var(--_suave); font-size: 0.92rem; max-width: 70ch; }
+.ch-tarjeta { display: grid; gap: 14px; padding: 20px 22px 24px; background: var(--_bg); border: 1px solid var(--_fuerte); border-radius: 16px; box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3); }
+.ch-remoto h2 { margin: 0; font-size: 1.4rem; font-weight: 700; line-height: 1.25; }
+.ch-remoto h3 { margin: 0; font-size: 1.1rem; font-weight: 700; }
+.ch-unidades { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.ch-unidades li { display: flex; align-items: center; gap: 0.75rem; padding: 13px 15px; border: 1px solid var(--_borde); border-radius: 12px; background: var(--_sup2); }
+.ch-unidades strong { font-size: 1.15rem; }
 .ch-unidades li span:nth-child(2) { color: var(--_suave); flex: 1; }
-.ch-insignia {
-  padding: 0.1rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  border: 1px solid var(--_borde);
-  color: var(--_suave);
+.ch-accesos { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.ch-remoto .ch-acceso { display: grid; gap: 2px; padding: 15px; border: 1px solid var(--_borde); border-radius: 12px; background: var(--_sup2); color: var(--_texto); font: inherit; text-align: left; cursor: pointer; }
+.ch-remoto .ch-acceso:hover { border-color: var(--_acento); color: var(--_texto); }
+.ch-acceso strong { font-size: 1.05rem; }
+.ch-acceso span { color: var(--_suave); font-size: 0.92rem; }
+@media (max-width: 760px) {
+  /* En el celular el menú pasa a una barra inferior fija: el marco no debe recortarla ni encerrarla. */
+  .ch-marco { display: block; overflow: visible; border: 0; border-radius: 0; background: none; box-shadow: none; }
+  .ch-pestanas { position: fixed; inset: auto 0 0 0; z-index: 20; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0; padding: 4px 2px calc(4px + env(safe-area-inset-bottom)); border-top: 1px solid var(--_fuerte); }
+  .ch-remoto .ch-pestana { flex-direction: column; justify-content: center; gap: 2px; min-height: 56px; padding: 4px 1px; text-align: center; }
+  .ch-nav-t { flex: none; font-size: 0.66rem; line-height: 1.1; }
+  .ch-nav-t::after { display: none; }
+  .ch-area { padding: 0 0 84px; }
 }
-.ch-insignia--titular { color: var(--_acento); border-color: var(--_acento); }
-.ch-error {
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  background: rgb(220 38 38 / 0.1);
-  color: #b91c1c;
-  border: 1px solid rgb(220 38 38 / 0.35);
-}
-.ch-pestanas { display: flex; gap: 0.25rem; margin: 1rem 0; border-bottom: 1px solid var(--_borde); }
-.ch-pestana {
-  padding: 0.5rem 1rem;
-  border: 0;
-  border-bottom: 2px solid transparent;
-  border-radius: 0.5rem 0.5rem 0 0;
-  background: none;
-  color: var(--_suave);
-  cursor: pointer;
-  font: inherit;
-}
-.ch-pestana:hover { color: var(--_texto); }
-.ch-pestana[aria-selected='true'] { color: var(--_acento); border-bottom-color: var(--_acento); font-weight: 600; }

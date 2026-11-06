@@ -7,7 +7,7 @@
 }
 .ch-boton {
   padding: 0.55rem 1rem; border: 1px solid var(--ch-accent, #2563eb); border-radius: 0.5rem;
-  background: var(--ch-accent, #2563eb); color: #fff; font: inherit; cursor: pointer;
+  background: var(--ch-accent, #2563eb); color: var(--ch-accent-texto, #fff); font: inherit; cursor: pointer;
 }
 .ch-boton:disabled { opacity: 0.6; cursor: progress; }
 .ch-campo-error { color: #b91c1c; font-size: 0.85rem; }

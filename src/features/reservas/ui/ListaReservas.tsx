@@ -4,11 +4,18 @@ import { ESTADOS, TEXTOS } from './textos';
 interface Props {
   reservas: Reserva[];
   areas: Area[];
-  alCancelar: (reserva: Reserva) => void;
+  alCancelar: (reserva: Reserva) => void | Promise<void>;
 }
 
 /** Fecha y hora en la zona del dispositivo; la lógica de negocio sigue en Reservas. */
 const cuando = (iso: string) => new Date(iso).toLocaleString('es-BO', { dateStyle: 'medium', timeStyle: 'short' });
+
+/** Si empieza y termina el mismo día, la fecha se muestra una sola vez. */
+const horario = (inicio: string, fin: string) => {
+  const dia = (iso: string) => new Date(iso).toLocaleDateString('es-BO', { dateStyle: 'medium' });
+  const hora = (iso: string) => new Date(iso).toLocaleTimeString('es-BO', { timeStyle: 'short' });
+  return dia(inicio) === dia(fin) ? `${dia(inicio)}, ${hora(inicio)} a ${hora(fin)}` : `${cuando(inicio)} → ${cuando(fin)}`;
+};
 
 export function ListaReservas({ reservas, areas, alCancelar }: Props) {
   if (reservas.length === 0) return <p className="ch-etiqueta">{TEXTOS.vacio}</p>;
@@ -18,7 +25,7 @@ export function ListaReservas({ reservas, areas, alCancelar }: Props) {
       {reservas.map((r) => (
         <li key={r.id} data-estado={r.estado}>
           <strong>{nombreDe(r.areaId)}</strong>
-          <span>{`${cuando(r.inicio)} → ${cuando(r.fin)}`}</span>
+          <span>{horario(r.inicio, r.fin)}</span>
           <span role="status">{ESTADOS[r.estado]}</span>
           <span className="ch-etiqueta">{`${TEXTOS.costo} ${r.costoUso} · ${TEXTOS.garantia} ${r.garantia}`}</span>
           {r.motivo && <span className="ch-campo-error">{r.motivo}</span>}

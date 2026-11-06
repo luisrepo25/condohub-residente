@@ -62,6 +62,8 @@ Remoto React (contenedor de Module Federation que expone `./remote`, con su prop
 
 Verificado en Chrome contra el sistema local: el OCR leyó un comprobante generado (monto, fecha, banco) en ~2 s; sin red el pago quedó «Esperando conexión» y al reconectar se envió con la misma clave (1 sola fila `PENDIENTE` en la BD). 81 pruebas con Vitest.
 
+**Rediseño (04/11/2026):** menú lateral (barra inferior en el celular), saldo siempre a la vista con el botón Pagar (`features/cuenta/ui/ResumenCuenta.tsx`, muestra lo que entrega Gestión sin operar montos), accesos rápidos en Mis unidades y confirmaciones en `shared/confirmar.ts` (`<dialog>` propio, con el confirm nativo como respaldo). Estilos comunes en `estilos.css` y `estilos-controles.css`.
+
 **Limitaciones:** el idioma del OCR (`eng`) y el motor wasm se descargan del CDN de Tesseract la primera vez, así que **leer la primera foto necesita red** salvo que un service worker los guarde (pendiente, PWA); Gestión no recibe la imagen del comprobante (`registrarPago` solo lleva monto, fecha y banco). **Falta:** service worker y manifest de la PWA, historial de pagos del servidor. Cómo correrlo y su contrato con el shell: `README.md`.
 
 ## Código funcional protegido (obligatorio)

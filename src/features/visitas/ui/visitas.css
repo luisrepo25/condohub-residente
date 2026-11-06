@@ -10,7 +10,7 @@
 .ch-campo-error { color: #b91c1c; font-size: 0.82rem; }
 .ch-boton {
   display: inline-block; padding: 0.6rem 1rem; border: 0; border-radius: 0.5rem; cursor: pointer; text-align: center;
-  font: inherit; font-weight: 600; text-decoration: none; color: #fff; background: var(--ch-accent, #2563eb);
+  font: inherit; font-weight: 600; text-decoration: none; color: var(--ch-accent-texto, #fff); background: var(--ch-accent, #2563eb);
 }
 .ch-boton:disabled { opacity: 0.6; cursor: progress; }
 .ch-boton--suave { color: var(--ch-accent, #2563eb); background: transparent; border: 1px solid var(--ch-accent, #2563eb); }

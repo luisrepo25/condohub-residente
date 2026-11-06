@@ -14,6 +14,7 @@ export function PagosPage({ unidades, ...dependencias }: Props) {
   return (
     <section className="ch-pagos" aria-label={TEXTOS.titulo}>
       <style>{estilos}</style>
+      <h2>{TEXTOS.titulo}</h2>
       <FormularioPago unidades={unidades} leido={leido} errores={errores} leyendo={leyendo} alLeer={leer} alEnviar={enviar} />
       {aviso && <p className="ch-aviso" role="status">{aviso}</p>}
       <h3>{TEXTOS.historial}</h3>
