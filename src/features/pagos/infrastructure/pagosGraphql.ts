@@ -2,8 +2,8 @@ import { gatewayUrl } from '../../../entorno';
 import type { ResultadoEnvio } from '../../../offline/operacion';
 import type { OperacionPago, ServicioPagos } from '../application/puertos';
 
-const MUTACION = `mutation($unidadId: ID!, $monto: Decimal!, $fechaPago: String!, $banco: String, $clave: ID!, $hora: String, $nroOperacion: String) {
-  registrarPago(unidadId: $unidadId, monto: $monto, fechaPago: $fechaPago, banco: $banco, idempotencyKey: $clave, horaDispositivo: $hora, nroOperacion: $nroOperacion) { id estado }
+const MUTACION = `mutation($unidadId: ID!, $monto: Decimal!, $fechaPago: String!, $banco: String, $clave: ID!, $hora: String, $nroOperacion: String, $comprobanteKey: String) {
+  registrarPago(unidadId: $unidadId, monto: $monto, fechaPago: $fechaPago, banco: $banco, idempotencyKey: $clave, horaDispositivo: $hora, nroOperacion: $nroOperacion, comprobanteKey: $comprobanteKey) { id estado }
 }`;
 
 interface ErrorGraphql {

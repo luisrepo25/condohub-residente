@@ -9,6 +9,13 @@ export interface DatosPago {
   banco: string | null;
   /** Solo viaja si se informó (F8). */
   nroOperacion?: string;
+  /** Clave de la foto en el almacén; solo viaja si se pudo subir (F8). */
+  comprobanteKey?: string;
+}
+
+/** Sube la foto del comprobante al almacén de documentos. `null` si no se pudo (sin conexión, sin almacén): el pago sigue sin foto. */
+export interface SubidorComprobante {
+  subir(unidadId: string, clave: string, imagen: Blob): Promise<string | null>;
 }
 
 export type OperacionPago = Operacion<DatosPago>;
