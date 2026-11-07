@@ -1,4 +1,5 @@
 import type { LectorComprobante } from '../application/puertos';
+import { reducirParaOcr } from './reducirImagen';
 
 /**
  * OCR en el navegador con Tesseract.js (IA local en el frontend web). La librería y el idioma se cargan al leer la primera
@@ -9,7 +10,7 @@ export const lectorTesseract: LectorComprobante = {
     const { createWorker } = await import('tesseract.js');
     const trabajador = await createWorker('eng');
     try {
-      const { data } = await trabajador.recognize(imagen);
+      const { data } = await trabajador.recognize(await reducirParaOcr(imagen));
       return data.text;
     } finally {
       await trabajador.terminate();
