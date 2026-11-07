@@ -2,6 +2,7 @@ import { createElement, useMemo } from 'react';
 import { crearColaPagos } from './infrastructure/colaPagos';
 import { crearServicioPagos } from './infrastructure/pagosGraphql';
 import { lectorTesseract } from './infrastructure/ocrTesseract';
+import { crearSimuladorPago } from './infrastructure/simulacionGraphql';
 import { PagosPage } from './ui/PagosPage';
 
 export interface PagosPanelProps {
@@ -13,5 +14,6 @@ export interface PagosPanelProps {
 export function PagosPanel({ getToken, unidades }: PagosPanelProps) {
   const cola = useMemo(() => crearColaPagos(), []);
   const servicio = useMemo(() => crearServicioPagos(getToken), [getToken]);
-  return createElement(PagosPage, { unidades, cola, servicio, lector: lectorTesseract });
+  const simulador = useMemo(() => crearSimuladorPago(getToken), [getToken]);
+  return createElement(PagosPage, { unidades, cola, servicio, simulador, lector: lectorTesseract });
 }

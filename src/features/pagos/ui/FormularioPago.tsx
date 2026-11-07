@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import type { DatosComprobante, ErroresPago } from '../domain/comprobante';
 import { TEXTOS } from './textos';
+import { VistaPreviaImputacion } from './VistaPreviaImputacion';
 
 interface Props {
   unidades: { unidadId: string; codigo: string }[];
@@ -54,6 +55,7 @@ export function FormularioPago({ unidades, leido, errores, leyendo, alLeer, alEn
         {TEXTOS.nroOperacion}
         <input value={datos.nroOperacion ?? ''} onChange={cambiar('nroOperacion')} autoComplete="off" />
       </label>
+      <VistaPreviaImputacion unidadId={unidadId} monto={datos.monto} />
       <button type="submit" className="ch-boton" disabled={leyendo}>{TEXTOS.enviar}</button>
     </form>
   );
