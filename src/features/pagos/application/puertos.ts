@@ -6,6 +6,8 @@ export interface DatosPago {
   monto: string;
   fechaPago: string;
   banco: string | null;
+  /** Solo viaja si se informó (F8). */
+  nroOperacion?: string;
 }
 
 export type OperacionPago = Operacion<DatosPago>;

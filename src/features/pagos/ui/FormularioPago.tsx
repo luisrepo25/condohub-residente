@@ -50,6 +50,10 @@ export function FormularioPago({ unidades, leido, errores, leyendo, alLeer, alEn
         {TEXTOS.banco}
         <input value={datos.banco} onChange={cambiar('banco')} autoComplete="off" />
       </label>
+      <label>
+        {TEXTOS.nroOperacion}
+        <input value={datos.nroOperacion ?? ''} onChange={cambiar('nroOperacion')} autoComplete="off" />
+      </label>
       <button type="submit" className="ch-boton" disabled={leyendo}>{TEXTOS.enviar}</button>
     </form>
   );

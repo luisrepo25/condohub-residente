@@ -7,6 +7,7 @@ export const TEXTOS = {
   monto: 'Monto',
   fecha: 'Fecha del comprobante',
   banco: 'Banco',
+  nroOperacion: 'Número de operación (opcional)',
   enviar: 'Registrar pago',
   historial: 'Mis pagos enviados',
   vacio: 'Todavía no registraste pagos desde este dispositivo.',

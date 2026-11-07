@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import type { ColaOperaciones } from '../../../offline/operacion';
 import { sincronizarPendientes } from '../../../offline/sincronizar';
 import { formatearMonto, leerComprobante, validarPago, type DatosComprobante, type ErroresPago } from '../domain/comprobante';
+import { leerNroOperacion } from '../domain/nroOperacion';
 import type { DatosPago, GeneradorUuid, LectorComprobante, OperacionPago, Reloj, ServicioPagos } from './puertos';
 import { useSincronizacion } from './useSincronizacion';
 
@@ -41,7 +42,9 @@ export function usePagos({ cola, servicio, lector, reloj = { ahora: () => new Da
       setLeyendo(true);
       setAviso(null);
       try {
-        setLeido(leerComprobante(await lector.leer(imagen)));
+        const texto = await lector.leer(imagen);
+        const nroOperacion = leerNroOperacion(texto);
+        setLeido({ ...leerComprobante(texto), ...(nroOperacion && { nroOperacion }) });
       } catch {
         setLeido(COMPROBANTE_VACIO);
         setAviso('No se pudo leer la foto. Escribe los datos a mano.');
@@ -58,7 +61,14 @@ export function usePagos({ cola, servicio, lector, reloj = { ahora: () => new Da
       const encontrados = validarPago(datos, hoy);
       setErrores(encontrados);
       if (Object.keys(encontrados).length > 0) return false;
-      const pago: DatosPago = { unidadId, monto: formatearMonto(datos.monto), fechaPago: datos.fecha, banco: datos.banco.trim() || null };
+      const nroOperacion = datos.nroOperacion?.trim();
+      const pago: DatosPago = {
+        unidadId,
+        monto: formatearMonto(datos.monto),
+        fechaPago: datos.fecha,
+        banco: datos.banco.trim() || null,
+        ...(nroOperacion && { nroOperacion }),
+      };
       await cola.agregar({ clave: uuid(), horaDispositivo: reloj.ahora().toISOString(), estado: 'PENDIENTE', intentos: 0, datos: pago });
       setLeido({ ...COMPROBANTE_VACIO }); // objeto nuevo: el formulario se limpia aunque ya estuviera vacío
       setAviso('Pago registrado como PENDIENTE: el administrador lo confirmará tras conciliarlo.');

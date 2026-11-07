@@ -3,6 +3,8 @@ export interface DatosComprobante {
   monto: string;
   fecha: string;
   banco: string;
+  /** Opcional (F8): con banco + número de operación Gestión no registra dos veces el mismo comprobante. */
+  nroOperacion?: string;
 }
 
 export interface ErroresPago {
