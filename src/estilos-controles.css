@@ -77,3 +77,13 @@
   .ch-pago-form, .ch-reserva-form, .ch-pagos > :not(h2, form, style), .ch-reservas > :not(h2, form, style) { grid-column: 1; grid-row: auto; }
   .ch-remoto .ch-saldo-pagar { width: 100%; }
 }
+
+/* Saldo del portal: colores con significado, esqueleto de carga y botón de actualizar (06/11/2026) */
+.ch-monto--peligro { color: var(--_pe, #b91c1c); }
+.ch-monto--ok { color: var(--_ok, #166534); }
+.ch-saldo-actualiza { display: flex; align-items: center; gap: 8px; }
+.ch-boton-icono { min-width: 40px; min-height: 40px; border: 1px solid var(--_borde, #cbd5e1); border-radius: 10px; background: var(--_sup2, #f1f5f9); color: inherit; font-size: 1.1rem; cursor: pointer; }
+.ch-boton-icono:disabled { opacity: 0.55; cursor: progress; }
+.ch-esqueleto { display: inline-block; width: 6ch; height: 1em; vertical-align: middle; border-radius: 6px; background: linear-gradient(90deg, var(--_sup2, #e2e8f0) 25%, var(--_borde, #cbd5e1) 50%, var(--_sup2, #e2e8f0) 75%); background-size: 200% 100%; animation: ch-brillo 1.2s linear infinite; }
+@keyframes ch-brillo { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .ch-esqueleto { animation: none; } }

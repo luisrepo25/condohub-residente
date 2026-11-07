@@ -2,15 +2,13 @@ import { useContext } from 'react';
 import { SimuladorContexto } from '../application/simuladorContexto';
 import { useSimulacionPago } from '../application/useSimulacionPago';
 import type { LineaSimulacion } from '../domain/simulacion';
+import { fechaLegible } from './fecha';
 import { TEXTOS } from './textos';
 
 interface Props {
   unidadId: string;
   monto: string;
 }
-
-/** «dd/mm/aaaa» a partir de una fecha ISO; solo texto, sin `Date`. */
-const fechaLegible = (iso: string) => `${iso.slice(8, 10)}/${iso.slice(5, 7)}/${iso.slice(0, 4)}`;
 
 function Linea({ l }: { l: LineaSimulacion }) {
   return (

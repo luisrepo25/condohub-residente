@@ -20,3 +20,4 @@
 .ch-vista-previa p { margin: 0; }
 .ch-vista-previa ul { margin: 0; padding-left: 1.1rem; display: grid; gap: 0.25rem; }
 .ch-vista-previa small { color: var(--ch-muted, #6b7280); }
+.ch-pago-detalle { color: var(--ch-muted, #6b7280); }

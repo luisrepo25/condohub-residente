@@ -18,6 +18,7 @@ export const TEXTOS = {
   sinCargos: 'No tienes cargos pendientes.',
   saldoAFavor: 'Saldo a favor',
   estimacion: 'Es una estimación: el administrador confirma el pago y el reparto sigue el orden de vencimiento.',
+  operacionCorta: 'Op.',
   historial: 'Mis pagos enviados',
   vacio: 'Todavía no registraste pagos desde este dispositivo.',
   estados: {
